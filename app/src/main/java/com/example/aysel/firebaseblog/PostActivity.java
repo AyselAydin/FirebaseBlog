@@ -59,12 +59,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
     private void startPosting() {
         mProgress.setMessage("Posting to Blog..");
-        mProgress.show();
+
 
         final String title_val = mPostTitle.getText().toString().trim();
         final String desc_val = mPostDesc.getText().toString().trim();
 
         if (!TextUtils.isEmpty(title_val) && !TextUtils.isEmpty(desc_val) && mimageUri != null) {
+            mProgress.show();
             StorageReference filepath = mStorage.child("Blog_Images").child(mimageUri.getLastPathSegment());
             filepath.putFile(mimageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -80,8 +81,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(PostActivity.this, MainActivity.class));
                 }
             });
-        }
-        else
+        } else
             mProgress.dismiss();
     }
 
